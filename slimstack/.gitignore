@@ -1,0 +1,18 @@
+# SlimStack runtime data
+.slimstack/
+usage.json
+
+# Memory store contents (user-specific)
+memory/store/*
+!memory/store/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
