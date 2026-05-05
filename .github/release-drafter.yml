@@ -1,0 +1,54 @@
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+
+categories:
+  - title: "🎯 New Skills"
+    labels:
+      - "skill:new"
+  - title: "✨ Skill Improvements"
+    labels:
+      - "skill:update"
+      - "enhancement"
+  - title: "🐛 Bug Fixes"
+    labels:
+      - "bug"
+      - "fix"
+  - title: "📚 Documentation"
+    labels:
+      - "docs"
+      - "documentation"
+  - title: "🔧 Maintenance"
+    labels:
+      - "chore"
+      - "ci"
+      - "dependencies"
+
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
+change-title-escapes: '\<*_&'
+
+version-resolver:
+  major:
+    labels:
+      - "breaking"
+      - "major"
+  minor:
+    labels:
+      - "skill:new"
+      - "feature"
+      - "minor"
+  patch:
+    labels:
+      - "bug"
+      - "fix"
+      - "skill:update"
+      - "docs"
+      - "chore"
+      - "ci"
+  default: patch
+
+template: |
+  ## What's Changed
+
+  $CHANGES
+
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION

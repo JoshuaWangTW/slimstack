@@ -1,0 +1,4 @@
+# Add patterns (one per line) for URLs that should be ignored by the link checker.
+# Useful for sites that rate-limit or require auth.
+# Example:
+# https://example.com/sometimes-flaky/.*

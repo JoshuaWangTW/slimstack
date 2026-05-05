@@ -1,0 +1,12 @@
+// markdownlint config — keep permissive for SKILL.md prose
+{
+  "default": true,
+  "MD013": false,                       // line length
+  "MD024": { "siblings_only": true },   // duplicate headings allowed in different sections
+  "MD033": false,                       // inline HTML
+  "MD034": false,                       // bare URLs
+  "MD036": false,                       // emphasis used as heading
+  "MD041": false,                       // first line must be top-level heading
+  "MD040": false,                       // fenced code language
+  "MD059": false                        // descriptive link text
+}
