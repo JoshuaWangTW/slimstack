@@ -82,6 +82,4 @@ description: |
 
 **產出**：技術選型 + DB Schema + API 設計 + 目錄結構 + 風險
 
-
-
 **交接**：確認→`task-decompose` | 實作→`implement` | 高風險→搭配 `careful`
