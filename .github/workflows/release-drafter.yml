@@ -1,0 +1,22 @@
+name: Release Drafter
+
+on:
+  push:
+    branches: [main]
+  # Note: release-drafter reads its config from the default branch, so we only
+  # run on push to main. PR-level draft updates can be enabled later by adding
+  # a `pull_request` trigger once `.github/release-drafter.yml` is merged.
+
+permissions:
+  contents: read
+
+jobs:
+  update_release_draft:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
