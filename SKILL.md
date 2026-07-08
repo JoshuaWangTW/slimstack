@@ -25,7 +25,7 @@ description: |
 
 ### 判斷流程
 
-1. 讀取 `~/.slimstack/usage.json`（如果存在）
+1. 讀取 `~/.slimstack/usage.json`；目錄或檔案不存在時，建立並初始化為 `{}`
 2. 查詢目標 skill 的使用次數與修正紀錄
 3. 根據上表決定載入層級
 4. 如果使用者明確說「用完整版」或任務特別複雜，**強制 Full**
@@ -45,7 +45,18 @@ description: |
 
 如果 `count - last_correction < 3`（近期有修正），**回升到 Full**，重新學習。
 
+### SKILL0 狀態診斷指令
+
+使用者說「SKILL0 狀態」時，讀取 usage.json，輸出各 skill 的表格：skill 名 / count / 目前層級（依上表推算）/ last_correction。檔案不存在則回報「尚無使用紀錄」。
+
 ### 幫助度回升（Helpfulness Rebound）
+
+「修正」指以下任一情況：
+- 使用者明確指出 skill 產出有錯或不符預期
+- 使用者要求同一 skill 重做或改寫產出
+- 使用者推翻 skill 產出的關鍵結論
+
+單純追問、補充需求、風格微調**不算**修正。
 
 如果使用者在 Compact 或 Zero 層級下的輸出被修正：
 - 該 skill 立即回升到 Full

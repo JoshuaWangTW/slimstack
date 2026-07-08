@@ -17,6 +17,7 @@ description: |
 
 ### 2. 技術選型
 根據 使用者 的常用棧做推薦，除非有特殊理由才偏離：
+以下為預設推薦值，請依你的專案技術棧修改此檔案。
 - Frontend: Next.js 14+ (App Router) + React 18 + Tailwind CSS
 - Backend: Next.js API Routes (Route Handlers)
 - Database: Supabase (PostgreSQL + Realtime)

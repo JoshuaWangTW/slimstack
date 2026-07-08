@@ -16,3 +16,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Agent working artifacts (never commit)
+.omc/

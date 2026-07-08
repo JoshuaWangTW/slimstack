@@ -11,5 +11,6 @@
   "MD036": false,                       // emphasis used as heading
   "MD040": false,                       // fenced code language
   "MD041": false,                       // first line must be top-level heading
-  "MD059": false                        // descriptive link text
+  "MD059": false,                       // descriptive link text
+  "MD060": false                        // table pipe spacing style (compact tables are fine)
 }

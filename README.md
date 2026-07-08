@@ -67,9 +67,9 @@ SlimStack is a collection of 19 composable "skills" that turn an AI assistant in
 └──────────────────────────────────────────────────────────┘
 ```
 
-路由器（根目錄 `SKILL.md`）是唯一常駐 context 的檔案（約 150 tokens）。19 個子技能按需載入，完成後釋放。
+路由器（根目錄 `SKILL.md`）是唯一常駐 context 的檔案（約 1,300 tokens，依 Claude BPE 換算約 1,200–1,500）。19 個子技能按需載入，完成後釋放。
 
-The router (`SKILL.md` at root) is the only file that stays in context permanently (~150 tokens). All 19 sub-skills load on demand and release after use.
+The router (`SKILL.md` at root) is the only file that stays in context permanently (~1,300 tokens; ~1,200–1,500 by Claude BPE). All 19 sub-skills load on demand and release after use.
 
 ---
 
@@ -128,6 +128,16 @@ echo 'Load ~/.claude/skills/slimstack/retro/SKILL.md and run a retrospective.' >
 2. 在 Project Instructions 貼入根目錄 `SKILL.md` 內容 / Paste the root `SKILL.md` content into Project Instructions
 3. 將常用子技能的 SKILL.md 上傳到 Project Knowledge / Upload frequently used sub-skill files to Project Knowledge
 4. AI 會根據你的訊息自動路由到正確的技能 / The AI will route to the correct skill based on your messages
+
+**使用限制 / Limitations：**
+
+- 路由器中的相對路徑引用（如 `office-hours/SKILL.md`）在 Claude Projects 無效；請改以「參考已上傳的對應檔案」方式進行路由。
+- SKILL0 漸進式撤除需要持久化檔案系統（儲存 `usage.json`），Claude Projects 不支援此機制，所有技能在此環境中將永遠以 Full 模式載入。
+
+**Limitations:**
+
+- Relative path references in the router (e.g., `office-hours/SKILL.md`) are invalid in Claude Projects; route by referencing the corresponding uploaded file instead.
+- SKILL0 progressive offloading requires a persistent filesystem (for `usage.json`), which Claude Projects does not support — all skills load permanently in Full mode in this environment.
 
 ### 其他 AI 工具 / Other AI assistants (ChatGPT, Cursor, etc.)
 
@@ -740,10 +750,20 @@ Then remove the corresponding line from the router table.
 
 ```
 slimstack/
-├── SKILL.md                  ← 路由器 Router（常駐 context，~150 tokens）
+├── SKILL.md                  ← 路由器 Router（常駐 context，~1,300 tokens）
 ├── README.md
 ├── LICENSE
 ├── .gitignore
+├── .markdownlint.jsonc       ← Markdown lint 設定 config
+├── .lycheeignore             ← 連結檢查排除 link check exclusions
+├── .github/
+│   ├── release-drafter.yml   ← Release 草稿設定 config
+│   └── workflows/
+│       ├── validate-skills.yml
+│       ├── markdown-check.yml
+│       └── release-drafter.yml
+├── scripts/
+│   └── validate_skills.py    ← Skill 驗證腳本 validation script
 ├── references/
 │   └── workflow.md           ← 工作流指南 Workflow guide
 ├── memory/
@@ -809,9 +829,9 @@ Yes. The skill files are plain Markdown and work with any AI that accepts system
 
 ### SlimStack 佔多少 context？/ How much context does SlimStack use?
 
-- 路由器（常駐）/ Router (permanent): ~150 tokens
+- 路由器（常駐）/ Router (permanent): ~1,300 tokens（約 1,200–1,500）
 - 一個載入的技能 / One loaded skill: ~800-1500 tokens (Full) / ~200-400 (Compact) / ~50 (Zero)
-- 任何時刻最大值 / Maximum at any time: 路由器 + 2 技能 ≈ 3,000-3,200 tokens
+- 任何時刻最大值 / Maximum at any time: 路由器 + 2 技能 Full ≈ 1,300 + 2×1,500 ≈ **~4,300 tokens**
 
 這只佔大多數 AI context window（100K-200K tokens）的一小部分。
 

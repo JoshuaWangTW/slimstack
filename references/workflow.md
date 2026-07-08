@@ -10,9 +10,10 @@ deep-interview → plan-eng → task-decompose → implement → review → ship
 
 ### 日常開發
 ```
-implement → review → ship
-（實作）   （審查）（推送）
+implement → review → git-auto → ship
+（實作）   （審查）（產 commit）（推送）
 ```
+發布後（選用）：→ document 產出文件/release notes
 
 ### 高風險操作
 ```
@@ -63,11 +64,11 @@ retro → memory → office-hours
 
 ## Token 管理提醒
 
-- Router 常駐佔用 ~150 tokens
+- Router 常駐佔用 ~1,300 tokens
 - 一次最多載入 2 個 skill
 - skill 完成任務後自動釋放
 - 如果 context 太長，優先釋放 skill 再繼續
 
 ---
 
-*最後更新：2026-04-05*
+*最後更新：2026-07-08*
