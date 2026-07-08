@@ -8,6 +8,7 @@ SKILL.md is exempt because it is the router).
 """
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -53,6 +54,42 @@ def validate(skill_md: Path, expected_name: str | None) -> list[str]:
     return errors
 
 
+def check_router_consistency() -> list[str]:
+    errors: list[str] = []
+    root_skill = REPO_ROOT / "SKILL.md"
+    if not root_skill.exists():
+        return errors
+
+    text = root_skill.read_text(encoding="utf-8")
+
+    section_match = re.search(r"## 路由規則\n(.*?)(?=\n## |\Z)", text, re.DOTALL)
+    if not section_match:
+        return errors
+
+    router_section = section_match.group(1)
+    ref_pattern = re.compile(r"`(\w[\w-]*)\/SKILL\.md`")
+    router_dirs = set(ref_pattern.findall(router_section))
+
+    # Forward check: each referenced dir must exist with SKILL.md
+    for dir_name in sorted(router_dirs):
+        skill_path = REPO_ROOT / dir_name / "SKILL.md"
+        if not skill_path.exists():
+            errors.append(
+                f"router references '{dir_name}/SKILL.md' but directory does not exist"
+            )
+
+    # Reverse check: each sub-dir with SKILL.md must appear in router table
+    for child in sorted(REPO_ROOT.iterdir()):
+        if not child.is_dir() or child.name in SKIP_DIRS or child.name.startswith("."):
+            continue
+        if (child / "SKILL.md").exists() and child.name not in router_dirs:
+            errors.append(
+                f"directory '{child.name}' has SKILL.md but is not in router table"
+            )
+
+    return errors
+
+
 def main() -> int:
     all_errors: list[str] = []
     checked = 0
@@ -71,6 +108,8 @@ def main() -> int:
             continue
         all_errors.extend(validate(skill_md, expected_name=child.name))
         checked += 1
+
+    all_errors.extend(check_router_consistency())
 
     if all_errors:
         print(f"Validated {checked} skill(s); found {len(all_errors)} issue(s):")
