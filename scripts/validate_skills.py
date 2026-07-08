@@ -51,6 +51,8 @@ def validate(skill_md: Path, expected_name: str | None) -> list[str]:
         errors.append(
             f"{rel}: name '{name}' does not match folder '{expected_name}'"
         )
+    if expected_name and "## Compact Version" not in text:
+        errors.append(f"{rel}: missing '## Compact Version' section")
     return errors
 
 
