@@ -744,6 +744,16 @@ slimstack/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
+├── .markdownlint.jsonc       ← Markdown lint 設定 config
+├── .lycheeignore             ← 連結檢查排除 link check exclusions
+├── .github/
+│   ├── release-drafter.yml   ← Release 草稿設定 config
+│   └── workflows/
+│       ├── validate-skills.yml
+│       ├── markdown-check.yml
+│       └── release-drafter.yml
+├── scripts/
+│   └── validate_skills.py    ← Skill 驗證腳本 validation script
 ├── references/
 │   └── workflow.md           ← 工作流指南 Workflow guide
 ├── memory/
