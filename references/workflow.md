@@ -10,9 +10,10 @@ deep-interview → plan-eng → task-decompose → implement → review → ship
 
 ### 日常開發
 ```
-implement → review → ship
-（實作）   （審查）（推送）
+implement → review → git-auto → ship
+（實作）   （審查）（產 commit）（推送）
 ```
+發布後（選用）：→ document 產出文件/release notes
 
 ### 高風險操作
 ```
@@ -70,4 +71,4 @@ retro → memory → office-hours
 
 ---
 
-*最後更新：2026-04-05*
+*最後更新：2026-07-08*
