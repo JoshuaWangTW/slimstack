@@ -64,7 +64,7 @@ retro → memory → office-hours
 
 ## Token 管理提醒
 
-- Router 常駐佔用 ~150 tokens
+- Router 常駐佔用 ~1,300 tokens
 - 一次最多載入 2 個 skill
 - skill 完成任務後自動釋放
 - 如果 context 太長，優先釋放 skill 再繼續
